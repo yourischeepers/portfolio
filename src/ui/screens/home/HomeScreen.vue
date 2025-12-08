@@ -19,7 +19,7 @@
             :selected="activeFilters.includes(androidPlatformId)"
             @click="togglePlatformFilter(androidPlatformId)"
         >
-          <IconAndroid />
+          <AnimatedAndroid />
         </PlatformButton>
 
         <PlatformButton
@@ -27,6 +27,7 @@
             :selected="activeFilters.includes(kmpPlatformId)"
             @click="togglePlatformFilter(kmpPlatformId)"
         >
+<!--          <AnimatedKotlinMultiplatform />-->
           <IconKotlinMultiplatform />
         </PlatformButton>
 
@@ -35,7 +36,7 @@
             :selected="activeFilters.includes(webPlatformId)"
             @click="togglePlatformFilter(webPlatformId)"
         >
-          <IconWeb />
+          <AnimatedGlobe />
         </PlatformButton>
       </div>
     </div>
@@ -69,11 +70,11 @@
 </style>
 <script setup lang="ts">
 import IconKotlinMultiplatform from "../../assets/icons/IconKotlinMultiplatform.vue";
-import IconAndroid from "../../assets/icons/IconAndroid.vue";
-import IconWeb from "../../assets/icons/IconWeb.vue";
 import PlatformButton from "./PlatformButton.vue";
 import {ref} from "vue";
 import Footer from "../../generic/footer/Footer.vue";
+import AnimatedGlobe from "../../assets/animations/AnimatedGlobe.vue";
+import AnimatedAndroid from "../../assets/animations/AnimatedAndroid.vue";
 
 const androidPlatformId = "android"
 const kmpPlatformId = "kmp"
