@@ -57,7 +57,7 @@ watch(() => props.texts, start, { deep: true });
 
 .slide-fade-enter-from {
   opacity: 0;
-  transform: translateY(100%);
+  transform: translateY(100%) rotateZ(30deg);
 }
 
 .slide-fade-leave-to {
@@ -67,5 +67,6 @@ watch(() => props.texts, start, { deep: true });
 
 .text {
   white-space: nowrap; /* optional, prevents line breaks */
+  transform-origin: left top;
 }
 </style>

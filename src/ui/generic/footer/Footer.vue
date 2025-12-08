@@ -34,8 +34,8 @@
         </div>
       </div>
 
-      <div class="flex justify-between w-full mt-16 mb-16">
-        <div class="flex items-center gap-3">
+      <div class="flex justify-between items-end w-full mt-16 mb-16">
+        <div class="flex items-center gap-3 pb-2">
           <p class="text-core-50 font-medium text-4xl">Youri Scheepers</p>
           <div class="h-1 w-12 bg-core-400" />
           <FooterScrollingText
@@ -45,10 +45,10 @@
         </div>
 
         <div class="flex items-center">
-          <a href="mailto:yourischeepers@outlook.com" class="hover:underline px-4 py-2 text-core-400 font-normal text-2xl">Email</a>
-          <a href="tel:0651875093" class="hover:underline px-4 py-2 text-core-400 font-normal text-2xl">+31651875093</a>
-          <a href="https://www.linkedin.com/in/youri-scheepers/" class="hover:underline px-4 py-2 text-core-400 font-normal text-2xl">LinkedIn</a>
-          <a href="https://github.com/PartyProNL" class="hover:underline px-4 py-2 text-core-400 font-normal text-2xl">GitHub</a>
+          <FooterLink url="mailto:yourischeepers@outlook.com">Email</FooterLink>
+          <FooterLink url="tel:0651875093">+31651875093</FooterLink>
+          <FooterLink url="https://www.linkedin.com/in/youri-scheepers/">LinkedIn</FooterLink>
+          <FooterLink url="https://github.com/PartyProNL">GitHub</FooterLink>
         </div>
       </div>
     </div>
@@ -62,6 +62,7 @@ import IconGitHub from "../../assets/icons/IconGitHub.vue";
 import IconDownload from "../../assets/icons/IconDownload.vue";
 import {nextTick, onBeforeUnmount, onMounted, ref} from "vue";
 import FooterScrollingText from "./FooterScrollingText.vue";
+import FooterLink from "./FooterLink.vue";
 
 const measure = ref<HTMLElement | null>(null);
 const horizontalLine = ref<HTMLElement | null>(null);
