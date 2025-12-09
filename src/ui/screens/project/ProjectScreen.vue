@@ -26,7 +26,7 @@
         </RouterLink>
       </div>
 
-      <div class="flex gap-6 w-full mt-6">
+      <div class="flex gap-6 w-full mt-6 mb-12">
         <div
             class="flex-1 rounded-3xl bg-cover aspect-[1.46] jump-up animation-duration-600"
             :style="{backgroundImage: `url('${project?.coverImageUrl}')`}"
@@ -49,7 +49,7 @@
                 class="flex gap-2 items-center bg-core-50 text-core-950 p-4 pr-6 rounded-full text-xl font-medium"
             >
               <AnimatedGlobe />
-              Open
+              View live
             </a>
 
             <a
@@ -63,7 +63,46 @@
           </div>
         </div>
       </div>
+
+      <div class="flex justify-center w-full my-8">
+        <p class="text-core-300 font-normal text-md max-w-[700px] w-full">
+          In the last quarter of 2024, Framna was tasked with developing a TV platform for Budget Thuis, who wanted to expand their business. The core of this platform is the Set Top Box (STB), a tiny box that consumers would get at home and plug into their screens to watch live television. This box, based on Android TV, required a system/launcher app for the actual TV interface and functionality.
+        </p>
+      </div>
     </div>
+
+    <div class="w-full bg-core-900 flex flex-col items-center pt-16">
+      <p class="text-core-400 text-md font-normal w-full text-center">
+        Next project
+      </p>
+
+      <RouterLink
+          :to="`/project/${nextProject?.slug}`"
+          class="group border-b-[1px] border-core-800 w-full max-w-[600px] px-20 relative flex flex-col items-center overflow-y-clip"
+      >
+        <div class="absolute top-0 flex flex-col items-center">
+          <h4 class="group-hover:opacity-50 transition-opacity text-core-50 text-9xl font-semibold text-nowrap duration-500">
+            {{ nextProject?.name }}
+          </h4>
+        </div>
+
+        <div
+            class="w-full bg-core-700 overflow-hidden aspect-[1.46] translate-y-[80%] group-hover:translate-y-12 transition-all duration-500"
+        >
+          <div
+            class="w-full h-full bg-cover opacity-100 group-hover:opacity-100 transition-opacity duration-500"
+            :style="{backgroundImage: `url('${nextProject?.coverImageUrl}')`}"
+           />
+        </div>
+      </RouterLink>
+
+      <RouterLink to="/" class="rounded-full p-4 px-6 bg-core-700 text-core-50 text-xl font-normal mt-12 gap-1 flex transition-colors hover:bg-core-800">
+        View all projects
+        <p class="text-sm">({{ amountOfProjects }})</p>
+      </RouterLink>
+    </div>
+
+    <Footer :minimal="true" />
   </div>
 </template>
 
@@ -75,12 +114,21 @@ import IconClose from "../../assets/icons/IconClose.vue";
 import type {Project} from "../../../domain/project/model/Project.ts";
 import AnimatedGlobe from "../../assets/animations/AnimatedGlobe.vue";
 import IconGitHub from "../../assets/icons/IconGitHub.vue";
+import Footer from "../../generic/footer/Footer.vue";
+import {GetNextProject} from "../../../domain/project/GetNextProject.ts";
+import IconHome from "../../assets/icons/IconHome.vue";
+import {GetProjects} from "../../../domain/project/GetProjects.ts";
 
 const getProjectBySlug = new GetProjectBySlug()
+const getNextProject = new GetNextProject()
+const getProjects = new GetProjects()
+
 const route = useRoute()
 const router = useRouter()
 
 const project = ref<Project>()
+const nextProject = ref<Project>()
+const amountOfProjects = ref(0)
 
 function loadProject() {
   const slug = route.params.slug ? route.params.slug as string : ""
@@ -88,6 +136,8 @@ function loadProject() {
 
   if (loadedProject) {
     project.value = loadedProject
+    nextProject.value = getNextProject.invoke(loadedProject)
+    amountOfProjects.value = getProjects.invoke().length
   } else {
     router.push("/")
   }

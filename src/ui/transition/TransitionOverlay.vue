@@ -1,0 +1,79 @@
+<template>
+  <div class="w-full h-screen flex justify-center items-center pointer-events-none">
+    <div class="absolute inset-0 w-full h-full flex">
+      <div class="pointer-events-auto ease-[cubic-bezier(.13,.43,.31,1)] w-full h-full origin-top scale-y-0 bg-core-900 transition-transform duration-[600ms]" :class="{'scale-y-100': isBackgroundVisible}" />
+      <div class="pointer-events-auto ease-[cubic-bezier(.13,.43,.31,1)] w-full h-full origin-top scale-y-0 bg-core-900 transition-transform duration-[600ms] delay-50" :class="{'scale-y-100': isBackgroundVisible}" />
+      <div class="pointer-events-auto ease-[cubic-bezier(.13,.43,.31,1)] w-full h-full origin-top scale-y-0 bg-core-900 transition-transform duration-[600ms] delay-100" :class="{'scale-y-100': isBackgroundVisible}" />
+      <div class="pointer-events-auto ease-[cubic-bezier(.13,.43,.31,1)] w-full h-full origin-top scale-y-0 bg-core-900 transition-transform duration-[600ms] delay-150" :class="{'scale-y-100': isBackgroundVisible}" />
+      <div class="pointer-events-auto ease-[cubic-bezier(.13,.43,.31,1)] w-full h-full origin-top scale-y-0 bg-core-900 transition-transform duration-[600ms] delay-200" :class="{'scale-y-100': isBackgroundVisible}" />
+      <div class="pointer-events-auto ease-[cubic-bezier(.13,.43,.31,1)] w-full h-full origin-top scale-y-0 bg-core-900 transition-transform duration-[600ms] delay-250" :class="{'scale-y-100': isBackgroundVisible}" />
+    </div>
+
+    <div class="relative font-normal text-5xl text-core-300 opacity-0 transition-opacity duration-500" :class="{'opacity-100': isTextVisible}">
+      <div class="flex items-center gap-4">
+        <p>{{ screenName }}</p>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script setup lang="ts">
+import { ref } from 'vue'
+
+const isBackgroundVisible = ref(false)
+const isTextVisible = ref(false)
+const screenName = ref("Loading")
+
+function show() {
+  isBackgroundVisible.value = true
+  setTimeout(() => {
+    isTextVisible.value = true
+  }, 300)
+  return new Promise(resolve => { resolve() })
+}
+
+function hide() {
+  isBackgroundVisible.value = false
+  isTextVisible.value = false
+  return new Promise(resolve => { resolve() })
+}
+
+function setScreenName(name: string) {
+  screenName.value = name
+}
+
+defineExpose({ show, hide, setScreenName })
+</script>
+
+<style scoped>
+@keyframes reveal {
+  0% {
+    height: 100%;
+  }
+  100% {
+    height: 0;
+  }
+}
+
+.reveal {
+  animation-name: reveal;
+  animation-duration: 0.8s;
+  animation-timing-function: cubic-bezier(.13,.43,.31,1);
+  animation-fill-mode: forwards;
+}
+
+@keyframes fade-out {
+  0% {
+    opacity: 100%;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+.fade-out {
+  animation-name: fade-out;
+  animation-duration: 0.5s;
+  animation-fill-mode: forwards;
+}
+</style>

@@ -11,12 +11,12 @@
 
     <div class="px-8 flex flex-col pt-20 md:px-24">
       <div ref="measure" class="flex flex-col">
-        <h4 class="text-core-50 font-normal text-4xl max-w-[460px]">
+        <h4 v-if="!minimal" class="text-core-50 font-normal text-4xl max-w-[460px]">
           Want to learn more?
           <span class="text-core-400">Check one of the options below</span>
         </h4>
 
-        <div class="flex flex-col gap-2 mt-8 items-start md:flex-row">
+        <div v-if="!minimal" class="flex flex-col gap-2 mt-8 items-start md:flex-row">
           <FooterFilledButton url="https://www.linkedin.com/in/youri-scheepers/">
             <IconLinkedIn class="size-5" />
             <p>LinkedIn</p>
@@ -88,4 +88,10 @@ onMounted(async () => {
 onBeforeUnmount(() => {
   window.removeEventListener("resize", positionLine);
 });
+
+interface Props {
+  minimal: boolean;
+}
+
+defineProps<Props>()
 </script>
