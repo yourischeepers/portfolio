@@ -83,6 +83,7 @@ const getProjects = new GetProjects()
 
 const activeFilters = ref<string[]>([])
 const projects = ref(getProjects.invoke())
+console.log(projects.value)
 
 function togglePlatformFilter(id: string) {
   if (activeFilters.value.includes(id)) {

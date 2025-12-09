@@ -37,11 +37,24 @@ export class ContentfulMapper {
             return asset.id == entryResponse.fields.gridImage.sys.id
         }) as ContentfulImage
 
+        const coverImageAsset = assets.find((asset) => {
+            return asset.id == entryResponse.fields.coverImage.sys.id
+        }) as ContentfulImage
+
         return new Project(
             entryResponse.fields.name,
+            entryResponse.fields.slug,
+            parseInt(entryResponse.fields.completed.split("-")[0]),
+            entryResponse.fields.client,
+            entryResponse.fields.platforms,
+            entryResponse.fields.roles,
+            entryResponse.fields.languages,
+            entryResponse.fields.otherTech,
             gridImageAsset.url,
             entryResponse.fields.gridImageShape == "Vertical",
-            parseInt(entryResponse.fields.completed.split("-")[0]),
+            coverImageAsset.url,
+            entryResponse.fields.sourceCodeUrl,
+            entryResponse.fields.deploymentUrl,
         )
     }
 }
