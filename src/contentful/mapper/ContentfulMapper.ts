@@ -3,6 +3,9 @@ import {ContentfulAssetMapper} from "./ContentfulAssetMapper.ts";
 import {ContentfulAsset} from "../model/asset/ContentfulAsset.ts";
 import {Project} from "../../domain/project/model/Project.ts";
 import type {ContentfulImage} from "../model/asset/ContentfulImage.ts";
+import {TextBlock} from "../model/items/TextBlock.ts";
+import type {BodyPart} from "../model/items/BodyPart.ts";
+import {ImageBlock} from "../model/items/ImageBlock.ts";
 
 export class ContentfulMapper {
 
@@ -14,6 +17,7 @@ export class ContentfulMapper {
     }
 
     private mapEntries(response: any, assets: ContentfulAsset[]): ContentfulData {
+        const bodyParts: BodyPart[] = []
         const projects: Project[] = []
 
         response.items.map((it: any) => {
@@ -22,13 +26,50 @@ export class ContentfulMapper {
                     projects.push(this.mapProject(it, assets))
                     break
 
+                case "textBlock":
+                    bodyParts.push(this.mapTextBlock(it))
+                    break
+
+                case "imageBlock":
+                    bodyParts.push(this.mapImageBlock(it, assets))
+                    break
+
                 default:
                     throw new Error("Unknown entry type")
             }
         })
 
+        projects.forEach((project) => {
+            project.bodyIds.forEach((it) => {
+                project.bodyParts.push(
+                    bodyParts.find((bodyPart) => {
+                        return bodyPart.id == it
+                    })
+                )
+            })
+        })
+
         return new ContentfulData(
             projects,
+        )
+    }
+
+    private mapTextBlock(entryResponse: any): TextBlock {
+        return new TextBlock(
+            entryResponse.sys.id,
+            entryResponse.fields.content,
+        )
+    }
+
+    private mapImageBlock(entryResponse: any, assets: ContentfulAsset[]): ImageBlock {
+        const imageAsset = assets.find((asset) => {
+            return asset.id == entryResponse.fields.image.sys.id
+        }) as ContentfulImage
+
+        return new ImageBlock(
+            entryResponse.sys.id,
+            imageAsset.url,
+            entryResponse.fields.description,
         )
     }
 
@@ -41,7 +82,7 @@ export class ContentfulMapper {
             return asset.id == entryResponse.fields.coverImage.sys.id
         }) as ContentfulImage
 
-        return new Project(
+        const project = new Project(
             entryResponse.fields.name,
             entryResponse.fields.slug,
             parseInt(entryResponse.fields.completed.split("-")[0]),
@@ -55,6 +96,10 @@ export class ContentfulMapper {
             coverImageAsset.url,
             entryResponse.fields.sourceCodeUrl,
             entryResponse.fields.deploymentUrl,
+            [],
         )
+
+        if (entryResponse.fields.body) project.bodyIds = entryResponse.fields.body.map((it) => { return it.sys.id })
+        return project
     }
 }

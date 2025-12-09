@@ -64,10 +64,9 @@
         </div>
       </div>
 
-      <div class="flex justify-center w-full my-8">
-        <p class="text-core-300 font-normal text-md max-w-[700px] w-full">
-          In the last quarter of 2024, Framna was tasked with developing a TV platform for Budget Thuis, who wanted to expand their business. The core of this platform is the Set Top Box (STB), a tiny box that consumers would get at home and plug into their screens to watch live television. This box, based on Android TV, required a system/launcher app for the actual TV interface and functionality.
-        </p>
+      <div v-for="bodyPart in project?.bodyParts" class="flex justify-center w-full mt-8 jump-up animation-duration-900">
+        <TextBlockPart v-if="bodyPart instanceof TextBlock" :text-block="bodyPart" />
+        <ImageBlockPart v-if="bodyPart instanceof ImageBlock" :image-block="bodyPart" />
       </div>
     </div>
 
@@ -118,6 +117,10 @@ import Footer from "../../generic/footer/Footer.vue";
 import {GetNextProject} from "../../../domain/project/GetNextProject.ts";
 import IconHome from "../../assets/icons/IconHome.vue";
 import {GetProjects} from "../../../domain/project/GetProjects.ts";
+import TextBlockPart from "./parts/TextBlockPart.vue";
+import {TextBlock} from "../../../contentful/model/items/TextBlock.ts";
+import ImageBlockPart from "./parts/ImageBlockPart.vue";
+import {ImageBlock} from "../../../contentful/model/items/ImageBlock.ts";
 
 const getProjectBySlug = new GetProjectBySlug()
 const getNextProject = new GetNextProject()

@@ -11,6 +11,7 @@
 
     <div class="relative font-normal text-5xl text-core-300 opacity-0 transition-opacity duration-500" :class="{'opacity-100': isTextVisible}">
       <div class="flex items-center gap-4">
+        <IconArrowRight class="size-12" />
         <p>{{ screenName }}</p>
       </div>
     </div>
@@ -19,6 +20,7 @@
 
 <script setup lang="ts">
 import { ref } from 'vue'
+import IconArrowRight from "../assets/icons/IconArrowRight.vue";
 
 const isBackgroundVisible = ref(false)
 const isTextVisible = ref(false)

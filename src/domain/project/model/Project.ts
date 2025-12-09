@@ -1,3 +1,5 @@
+import type {BodyPart} from "../../../contentful/model/items/BodyPart.ts";
+
 export class Project {
 
     public name: string
@@ -15,6 +17,9 @@ export class Project {
 
     public sourceCodeUrl: string | undefined
     public deploymentUrl: string | undefined
+    public bodyParts: BodyPart[]
+
+    public bodyIds: string[] = []
 
     constructor(
         name: string,
@@ -30,6 +35,7 @@ export class Project {
         coverImageUrl: string,
         sourceCodeUrl: string | undefined,
         deploymentUrl: string | undefined,
+        bodyParts: BodyPart[],
     ) {
         this.name = name
         this.slug = slug
@@ -44,5 +50,6 @@ export class Project {
         this.coverImageUrl = coverImageUrl
         this.sourceCodeUrl = sourceCodeUrl
         this.deploymentUrl = deploymentUrl
+        this.bodyParts = bodyParts
     }
 }
