@@ -4,7 +4,7 @@
   <div class="w-full relative min-h-screen flex flex-col bg-core-50">
     <Header />
 
-    <div class="flex flex-col gap-5 w-full px-8 mt-24 z-10 md:px-24">
+    <div class="flex flex-col gap-5 w-full mt-24 z-10 horizontal-spacing">
       <div class="w-full grid grid-cols-1 gap-5 mb-16 jump-up animation-duration-900 md:grid-cols-3">
         <ProjectGridItem v-for="project in projects" :project="project" />
       </div>

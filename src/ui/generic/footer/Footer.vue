@@ -27,7 +27,7 @@
             <p>GitHub</p>
           </FooterFilledButton>
 
-          <FooterFilledButton url="/download/resume">
+          <FooterFilledButton url="/downloads/resume">
             <IconDownload class="size-5" />
             <p>Download Resume</p>
           </FooterFilledButton>
