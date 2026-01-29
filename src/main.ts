@@ -3,6 +3,7 @@ import './style.css'
 import App from './App.vue'
 import {createRouter, createWebHistory} from "vue-router";
 import {routes} from "./routes.ts";
+import {createHead} from "@unhead/vue/client";
 
 const router = createRouter({
     history: createWebHistory("/"),
@@ -41,6 +42,9 @@ router.afterEach(async () => {
     overlayRef.hide()
 })
 
+const head = createHead()
+
 createApp(App)
+    .use(head)
     .use(router)
     .mount('#app')

@@ -24,8 +24,15 @@ import {GetProjects} from "../../../domain/project/GetProjects.ts";
 import ProjectGridItem from "./ProjectGridItem.vue";
 import NavigationTabs from "../../generic/navigation/NavigationTabs.vue";
 import Header from "../../generic/header/Header.vue";
+import {setupSEO} from "../../util/seo.ts";
 
 const getProjects = new GetProjects()
 
 const projects = ref(getProjects.invoke())
+
+setupSEO(
+    "Youri Scheepers",
+    "Android & Kotlin Multiplatform developer (with a touch of web)",
+    "./images/seo-image.png"
+)
 </script>

@@ -3,6 +3,7 @@ import SplashScreen from "./ui/screens/splash/SplashScreen.vue";
 import {onMounted, ref} from "vue";
 import TransitionOverlay from "./ui/transition/TransitionOverlay.vue";
 import {useRouter} from "vue-router";
+import {setupSEO} from "./ui/util/seo.ts";
 
 const isLoading = ref(true)
 
@@ -16,6 +17,12 @@ onMounted(() => {
 function onFinish() {
   isLoading.value = false
 }
+
+setupSEO(
+    "Youri Scheepers",
+    "Android & Kotlin Multiplatform developer (with a touch of web)",
+    "./images/seo-image.png"
+)
 </script>
 
 <template>
