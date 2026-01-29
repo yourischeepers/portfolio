@@ -31,7 +31,7 @@ router.beforeEach(async (to, from, next) => {
         overlayRef.setScreenName(name)
     }
 
-    await new Promise((resolve) => setTimeout(resolve, 2000))
+    await new Promise((resolve) => setTimeout(resolve, 1500))
 
     next()
 })

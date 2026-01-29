@@ -15,7 +15,7 @@
 
         <div class="h-1 w-16 bg-core-300" />
 
-        <p class="w-16">{{ progress }}%</p>
+        <p class="w-16">{{ Math.ceil(progress) }}%</p>
       </div>
     </div>
   </div>

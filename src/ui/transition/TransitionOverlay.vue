@@ -10,7 +10,7 @@
     </div>
 
     <div class="relative font-normal text-5xl text-core-300 opacity-0 transition-opacity duration-500" :class="{'opacity-100': isTextVisible}">
-      <div class="flex items-center gap-4">
+      <div class="flex items-center gap-4 -translate-y-18 transition-transform duration-800 ease-in-out" :class="{ 'translate-y-0': isBackgroundVisible }">
         <IconArrowRight class="size-12" />
         <p>{{ screenName }}</p>
       </div>
@@ -46,36 +46,3 @@ function setScreenName(name: string) {
 
 defineExpose({ show, hide, setScreenName })
 </script>
-
-<style scoped>
-@keyframes reveal {
-  0% {
-    height: 100%;
-  }
-  100% {
-    height: 0;
-  }
-}
-
-.reveal {
-  animation-name: reveal;
-  animation-duration: 0.8s;
-  animation-timing-function: cubic-bezier(.13,.43,.31,1);
-  animation-fill-mode: forwards;
-}
-
-@keyframes fade-out {
-  0% {
-    opacity: 100%;
-  }
-  100% {
-    opacity: 0;
-  }
-}
-
-.fade-out {
-  animation-name: fade-out;
-  animation-duration: 0.5s;
-  animation-fill-mode: forwards;
-}
-</style>
