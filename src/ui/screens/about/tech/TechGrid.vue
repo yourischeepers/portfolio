@@ -11,7 +11,7 @@
 
       <TechCategory
           name="Backend"
-          :items="['Java', 'Spring Boot']"
+          :items="['Java', 'Spring Boot', 'Exposed (ORM)']"
       />
 
       <TechCategory
