@@ -100,7 +100,7 @@
 </template>
 
 <script setup lang="ts">
-import LanguageSkills from "./LanguageSkills.vue";
+import LanguageSkills from "./languages/LanguageSkills.vue";
 import IconCloverSix from "../../assets/icons/IconCloverSix.vue";
 import InterestCard from "./interests/InterestCard.vue";
 import {ref} from "vue";

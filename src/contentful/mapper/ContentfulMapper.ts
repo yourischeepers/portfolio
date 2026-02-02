@@ -6,6 +6,7 @@ import type {ContentfulImage} from "../model/asset/ContentfulImage.ts";
 import {TextBlock} from "../model/items/TextBlock.ts";
 import type {BodyPart} from "../model/items/BodyPart.ts";
 import {ImageBlock} from "../model/items/ImageBlock.ts";
+import {Language} from "../../domain/about/languages/model/Language.ts";
 
 export class ContentfulMapper {
 
@@ -19,6 +20,7 @@ export class ContentfulMapper {
     private mapEntries(response: any, assets: ContentfulAsset[]): ContentfulData {
         const bodyParts: BodyPart[] = []
         const projects: Project[] = []
+        const languages: Language[] = []
 
         response.items.map((it: any) => {
             switch (it.sys.contentType.sys.id) {
@@ -32,6 +34,10 @@ export class ContentfulMapper {
 
                 case "imageBlock":
                     bodyParts.push(this.mapImageBlock(it, assets))
+                    break
+
+                case "language":
+                    languages.push(this.mapLanguage(it))
                     break
 
                 default:
@@ -51,6 +57,7 @@ export class ContentfulMapper {
 
         return new ContentfulData(
             projects,
+            languages,
         )
     }
 
@@ -102,5 +109,13 @@ export class ContentfulMapper {
 
         if (entryResponse.fields.body) project.bodyIds = entryResponse.fields.body.map((it) => { return it.sys.id })
         return project
+    }
+
+    private mapLanguage(entryResponse: any): Language {
+        return new Language(
+            entryResponse.fields.name,
+            entryResponse.fields.fluency,
+            entryResponse.fields.fluencyPercentage,
+        )
     }
 }
