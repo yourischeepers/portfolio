@@ -28,30 +28,38 @@
     <div class="flex flex-col mt-6">
       <WorkExperience
           role="Android Developer (working student)"
-          where="at Framna"
+          where="at"
           start="June 2025"
-      />
+      >
+        <LogoFramna />
+      </WorkExperience>
 
       <WorkExperience
           role="Android Developer Intern (10/10 Grade)"
-          where="at Framna"
+          where="at"
           start="February 2025"
           end="June 2025"
-      />
+      >
+        <LogoFramna />
+      </WorkExperience>
 
       <WorkExperience
           role="Student Mentor"
-          where="at AUAS"
+          where="at"
           start="September 2024"
           end="February 2025"
-      />
+      >
+        AUAS
+      </WorkExperience>
 
       <WorkExperience
           role="Freelance Java Backend Developer"
-          where="via Fiverr"
+          where="via"
           start="October 2020"
           end="August 2021"
-      />
+      >
+        <LogoFiverr />
+      </WorkExperience>
     </div>
   </div>
 </template>
@@ -60,4 +68,6 @@
 
 import IconDownload from "../../../assets/icons/IconDownload.vue";
 import WorkExperience from "./WorkExperience.vue";
+import LogoFramna from "../../../assets/logos/LogoFramna.vue";
+import LogoFiverr from "../../../assets/logos/LogoFiverr.vue";
 </script>

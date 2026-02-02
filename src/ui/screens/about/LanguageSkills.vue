@@ -8,7 +8,7 @@
 
     <div class="flex flex-col gap-8">
       <LanguageSkillLevel name="Dutch" level="Native" :progress="100" />
-      <LanguageSkillLevel name="English" level="Native" :progress="95" />
+      <LanguageSkillLevel name="English" level="Fluent" :progress="95" />
       <LanguageSkillLevel name="German" level="High school level" :progress="30" />
       <LanguageSkillLevel name="Chinese" level="Learning" :progress="10" />
     </div>
