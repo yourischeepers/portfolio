@@ -7,6 +7,7 @@ import {TextBlock} from "../model/items/TextBlock.ts";
 import type {BodyPart} from "../model/items/BodyPart.ts";
 import {ImageBlock} from "../model/items/ImageBlock.ts";
 import {Language} from "../../domain/about/languages/model/Language.ts";
+import {WorkExperience} from "../../domain/about/experience/model/WorkExperience.ts";
 
 export class ContentfulMapper {
 
@@ -21,6 +22,7 @@ export class ContentfulMapper {
         const bodyParts: BodyPart[] = []
         const projects: Project[] = []
         const languages: Language[] = []
+        const experience: WorkExperience[] = []
 
         response.items.map((it: any) => {
             switch (it.sys.contentType.sys.id) {
@@ -38,6 +40,10 @@ export class ContentfulMapper {
 
                 case "language":
                     languages.push(this.mapLanguage(it))
+                    break
+
+                case "workExperience":
+                    experience.push(this.mapWorkExperience(it))
                     break
 
                 default:
@@ -58,6 +64,7 @@ export class ContentfulMapper {
         return new ContentfulData(
             projects,
             languages,
+            experience,
         )
     }
 
@@ -116,6 +123,19 @@ export class ContentfulMapper {
             entryResponse.fields.name,
             entryResponse.fields.fluency,
             entryResponse.fields.fluencyPercentage,
+        )
+    }
+
+    private mapWorkExperience(entryResponse: any): WorkExperience {
+        return new WorkExperience(
+            entryResponse.fields.role,
+            entryResponse.fields.isViaPlatform,
+            entryResponse.fields.company,
+            entryResponse.fields.isInSoftware,
+            new Date(entryResponse.fields.startDate),
+            entryResponse.fields.endDate
+                ? new Date(entryResponse.fields.endDate)
+                : undefined,
         )
     }
 }

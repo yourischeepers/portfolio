@@ -16,50 +16,28 @@
     <div class="flex flex-row gap-1 mt-3">
       <div class="flex flex-row gap-0.5 bg-core-950 text-core-50 rounded-full px-6 py-4">
         <p class="text-xl font-medium">All</p>
-        <p class="text-sm font-medium">(4)</p>
+        <p class="text-sm font-medium">({{ workExperience.length }})</p>
       </div>
 
       <div class="flex flex-row gap-0.5 bg-core-100 text-core-950 rounded-full px-6 py-4">
         <p class="text-xl font-medium">Software</p>
-        <p class="text-sm font-medium">(3)</p>
+        <p class="text-sm font-medium">({{ workExperience.filter((it) => it.isInSoftware).length }})</p>
       </div>
     </div>
 
     <div class="flex flex-col mt-6">
-      <WorkExperience
-          role="Android Developer (working student)"
-          where="at"
-          start="June 2025"
+      <!-- TODO: PROPER DATE FORMATTING -->
+      <WorkExperienceItem
+          v-for="experience in workExperience"
+          :role="experience.role"
+          :where="experience.isViaPlatform ? 'via' : 'at'"
+          :start="experience.startDate.toDateString()"
+          :end="experience.endDate ? experience.endDate.toDateString() : ''"
       >
-        <LogoFramna />
-      </WorkExperience>
-
-      <WorkExperience
-          role="Android Developer Intern (10/10 Grade)"
-          where="at"
-          start="February 2025"
-          end="June 2025"
-      >
-        <LogoFramna />
-      </WorkExperience>
-
-      <WorkExperience
-          role="Student Mentor"
-          where="at"
-          start="September 2024"
-          end="February 2025"
-      >
-        AUAS
-      </WorkExperience>
-
-      <WorkExperience
-          role="Freelance Java Backend Developer"
-          where="via"
-          start="October 2020"
-          end="August 2021"
-      >
-        <LogoFiverr />
-      </WorkExperience>
+        <LogoFramna v-if="experience.company == 'Framna'" />
+        <LogoFiverr v-else-if="experience.company == 'Fiverr'" />
+        <p v-else>{{ experience.company }}</p>
+      </WorkExperienceItem>
     </div>
   </div>
 </template>
@@ -67,7 +45,19 @@
 <script setup lang="ts">
 
 import IconDownload from "../../../assets/icons/IconDownload.vue";
-import WorkExperience from "./WorkExperience.vue";
+import WorkExperienceItem from "./WorkExperienceItem.vue";
 import LogoFramna from "../../../assets/logos/LogoFramna.vue";
 import LogoFiverr from "../../../assets/logos/LogoFiverr.vue";
+import {GetWorkExperience} from "../../../../domain/about/experience/GetWorkExperience.ts";
+import {ref} from "vue";
+import type {WorkExperience} from "../../../../domain/about/experience/model/WorkExperience.ts";
+
+const getWorkExperience = new GetWorkExperience()
+const workExperience = ref<WorkExperience[]>([])
+
+function loadWorkExperience() {
+  workExperience.value = getWorkExperience.invoke()
+}
+
+loadWorkExperience()
 </script>

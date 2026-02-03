@@ -3,6 +3,7 @@ import {ContentfulCache} from "./ContentfulCache.ts";
 import {ContentfulService} from "./ContentfulService.ts";
 import {ContentfulMapper} from "./mapper/ContentfulMapper.ts";
 import type {Language} from "../domain/about/languages/model/Language.ts";
+import type {WorkExperience} from "../domain/about/experience/model/WorkExperience.ts";
 
 export class Contentful {
 
@@ -20,5 +21,9 @@ export class Contentful {
 
     public getLanguages(): Language[] {
         return ContentfulCache.data.languages
+    }
+
+    public getExperience(): WorkExperience[] {
+        return ContentfulCache.data.experience
     }
 }
