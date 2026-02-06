@@ -14,25 +14,28 @@
     </div>
 
     <div class="flex flex-row gap-1 mt-3">
-      <div class="flex flex-row gap-0.5 bg-core-950 text-core-50 rounded-full px-6 py-4">
-        <p class="text-xl font-medium">All</p>
-        <p class="text-sm font-medium">({{ workExperience.length }})</p>
-      </div>
+      <SelectableButtonOnBackground
+          name="All"
+          :small-text="`(${workExperience.length})`"
+          :active="!isFilteringSoftware"
+          @click="removeFilter"
+      />
 
-      <div class="flex flex-row gap-0.5 bg-core-100 text-core-950 rounded-full px-6 py-4">
-        <p class="text-xl font-medium">Software</p>
-        <p class="text-sm font-medium">({{ workExperience.filter((it) => it.isInSoftware).length }})</p>
-      </div>
+      <SelectableButtonOnBackground
+          name="Software"
+          :small-text="`(${workExperience.filter((it) => it.isInSoftware).length})`"
+          :active="isFilteringSoftware"
+          @click="filterSoftware"
+      />
     </div>
 
     <div class="flex flex-col mt-6">
-      <!-- TODO: PROPER DATE FORMATTING -->
       <WorkExperienceItem
           v-for="experience in workExperience"
           :role="experience.role"
           :where="experience.isViaPlatform ? 'via' : 'at'"
-          :start="experience.startDate.toDateString()"
-          :end="experience.endDate ? experience.endDate.toDateString() : ''"
+          :start="formatMonthYear(experience.startDate)"
+          :end="experience.endDate ? formatMonthYear(experience.endDate) : ''"
       >
         <LogoFramna v-if="experience.company == 'Framna'" />
         <LogoFiverr v-else-if="experience.company == 'Fiverr'" />
@@ -51,12 +54,43 @@ import LogoFiverr from "../../../assets/logos/LogoFiverr.vue";
 import {GetWorkExperience} from "../../../../domain/about/experience/GetWorkExperience.ts";
 import {ref} from "vue";
 import type {WorkExperience} from "../../../../domain/about/experience/model/WorkExperience.ts";
+import SelectableButtonOnBackground from "../../../generic/buttons/SelectableButtonOnBackground.vue";
 
 const getWorkExperience = new GetWorkExperience()
 const workExperience = ref<WorkExperience[]>([])
+const isFilteringSoftware = ref(false)
+
+let allWorkExperience: WorkExperience[] = []
 
 function loadWorkExperience() {
-  workExperience.value = getWorkExperience.invoke()
+  allWorkExperience = getWorkExperience.invoke()
+  updateWorkExperience()
+}
+
+function removeFilter() {
+  isFilteringSoftware.value = false
+  updateWorkExperience()
+}
+
+function filterSoftware() {
+  isFilteringSoftware.value = true
+  updateWorkExperience()
+}
+
+function updateWorkExperience() {
+  if (isFilteringSoftware.value) {
+    workExperience.value = allWorkExperience.filter((it) => { return it.isInSoftware })
+  } else {
+    workExperience.value = allWorkExperience
+  }
+}
+
+// TODO Make this part of the model itself
+function formatMonthYear(date: Date) {
+  return date.toLocaleDateString("en-US", {
+    month: "short",
+    year: "numeric",
+  })
 }
 
 loadWorkExperience()
