@@ -8,7 +8,7 @@ import {createHead} from "@unhead/vue/client";
 const router = createRouter({
     history: createWebHistory("/"),
     routes,
-    scrollBehavior(to, from, savedPosition) {
+    scrollBehavior(_, __, savedPosition) {
         if (savedPosition) return savedPosition
         return { top: 0 }
     }
@@ -16,7 +16,7 @@ const router = createRouter({
 
 let isFirstNavigation = true
 
-router.beforeEach(async (to, from, next) => {
+router.beforeEach(async (to, _, next) => {
     if (isFirstNavigation) {
         isFirstNavigation = false
         return next()
@@ -28,7 +28,7 @@ router.beforeEach(async (to, from, next) => {
     await overlayRef.show()
 
     if (to.meta.getScreenName) {
-        const name = to.meta.getScreenName(to)
+        const name = (to.meta as any).getScreenName(to)
         overlayRef.setScreenName(name)
     }
 

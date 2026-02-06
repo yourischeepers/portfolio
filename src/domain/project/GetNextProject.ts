@@ -8,6 +8,9 @@ export class GetNextProject {
     public invoke(project: Project): Project {
         const projects = this.getProjects.invoke()
         const currentProjectIndex = projects.indexOf(project)
-        return projects[(currentProjectIndex + 1) % projects.length]
+        const nextProject = projects[(currentProjectIndex + 1) % projects.length]
+
+        if (!nextProject) throw Error("No next project found, is projects empty?")
+        return nextProject
     }
 }

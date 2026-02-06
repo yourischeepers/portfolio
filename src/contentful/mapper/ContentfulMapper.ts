@@ -53,11 +53,13 @@ export class ContentfulMapper {
 
         projects.forEach((project) => {
             project.bodyIds.forEach((it) => {
-                project.bodyParts.push(
-                    bodyParts.find((bodyPart) => {
-                        return bodyPart.id == it
-                    })
-                )
+                const bodyPart = bodyParts.find((bodyPart) => {
+                    return bodyPart.id == it
+                })
+
+                if (bodyPart) {
+                    project.bodyParts.push(bodyPart)
+                }
             })
         })
 
@@ -114,7 +116,7 @@ export class ContentfulMapper {
             [],
         )
 
-        if (entryResponse.fields.body) project.bodyIds = entryResponse.fields.body.map((it) => { return it.sys.id })
+        if (entryResponse.fields.body) project.bodyIds = entryResponse.fields.body.map((it: any) => { return it.sys.id })
         return project
     }
 

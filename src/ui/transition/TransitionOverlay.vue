@@ -31,13 +31,13 @@ function show() {
   setTimeout(() => {
     isTextVisible.value = true
   }, 300)
-  return new Promise(resolve => { resolve() })
+  return new Promise<void>(resolve => { resolve() })
 }
 
 function hide() {
   isBackgroundVisible.value = false
   isTextVisible.value = false
-  return new Promise(resolve => { resolve() })
+  return new Promise<void>(resolve => { resolve() })
 }
 
 function setScreenName(name: string) {

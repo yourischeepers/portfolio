@@ -2,6 +2,7 @@ import HomeScreen from "./ui/screens/home/HomeScreen.vue";
 import ProjectScreen from "./ui/screens/project/ProjectScreen.vue";
 import { GetProjectBySlug } from "./domain/project/GetProjectBySlug.ts";
 import AboutScreen from "./ui/screens/about/AboutScreen.vue";
+import type {RouteLocationNormalizedGeneric} from "vue-router";
 
 const getProjectBySlug = new GetProjectBySlug();
 
@@ -11,7 +12,7 @@ export const routes = [
         path: '/',
         component: HomeScreen,
         meta: {
-            getScreenName: (route): string => {
+            getScreenName: (_: RouteLocationNormalizedGeneric): string => {
                 return "Home"
             }
         },
@@ -23,7 +24,7 @@ export const routes = [
         path: '/about',
         component: AboutScreen,
         meta: {
-            getScreenName: (route): string => {
+            getScreenName: (_: RouteLocationNormalizedGeneric): string => {
                 return "About"
             }
         },
@@ -34,8 +35,9 @@ export const routes = [
         path: '/project/:slug',
         component: ProjectScreen,
         meta: {
-            getScreenName: (route): string => {
-                const project = getProjectBySlug.invoke(route.params.slug)
+            getScreenName: (route: RouteLocationNormalizedGeneric): string => {
+                const slug = route.params.slug as string
+                const project = slug ? getProjectBySlug.invoke(slug) : undefined
                 return project ? project.name : "Loading"
             }
         }

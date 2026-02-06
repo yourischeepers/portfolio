@@ -117,7 +117,6 @@ import AnimatedGlobe from "../../assets/animations/AnimatedGlobe.vue";
 import IconGitHub from "../../assets/icons/IconGitHub.vue";
 import Footer from "../../generic/footer/Footer.vue";
 import {GetNextProject} from "../../../domain/project/GetNextProject.ts";
-import IconHome from "../../assets/icons/IconHome.vue";
 import {GetProjects} from "../../../domain/project/GetProjects.ts";
 import TextBlockPart from "./parts/TextBlockPart.vue";
 import {TextBlock} from "../../../contentful/model/items/TextBlock.ts";

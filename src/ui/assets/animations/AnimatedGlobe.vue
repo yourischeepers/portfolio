@@ -2,13 +2,13 @@
   <div ref="container" class="size-6 rounded-full overflow-hidden tilting"></div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { ref, onMounted, onBeforeUnmount } from 'vue'
 import lottie from 'lottie-web'
 import animationData from './globe.json'
 
-const container = ref(null)
-let animation = null
+const container = ref()
+let animation: any = null
 
 onMounted(() => {
   animation = lottie.loadAnimation({
