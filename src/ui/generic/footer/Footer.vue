@@ -22,7 +22,7 @@
             <p>LinkedIn</p>
           </FooterFilledButton>
 
-          <FooterFilledButton url="https://github.com/PartyProNL">
+          <FooterFilledButton url="https://github.com/yourischeepers">
             <IconGitHub class="size-5" />
             <p>GitHub</p>
           </FooterFilledButton>
@@ -48,7 +48,7 @@
           <FooterLink url="mailto:yourischeepers@outlook.com">Email</FooterLink>
           <FooterLink url="tel:0651875093">+31651875093</FooterLink>
           <FooterLink url="https://www.linkedin.com/in/youri-scheepers/">LinkedIn</FooterLink>
-          <FooterLink url="https://github.com/PartyProNL">GitHub</FooterLink>
+          <FooterLink url="https://github.com/yourischeepers">GitHub</FooterLink>
         </div>
       </div>
     </div>
